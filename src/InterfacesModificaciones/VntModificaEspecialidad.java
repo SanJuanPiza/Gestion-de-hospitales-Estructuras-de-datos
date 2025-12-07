@@ -1,0 +1,595 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ */
+package InterfacesModificaciones;
+
+import InterfacesAltas.*;
+import cjb.ci.CtrlInterfaz;
+import cjb.ci.Validaciones;
+import codigo.Especialidad;
+import codigo.Hospital;
+import codigo.MnpHDEP;
+import codigo.NodoML;
+import javax.swing.JOptionPane;
+
+/**
+ *
+ * @author ErIcK
+ */
+public class VntModificaEspecialidad extends javax.swing.JFrame
+{
+
+    /**
+     * Creates new form VntAltaDependencia
+     */
+    public VntModificaEspecialidad()
+    {
+        initComponents();
+        try
+        {
+            jcDependencia.setModel(new javax.swing.DefaultComboBoxModel<>(codigo.MnpHDEP.mostrarDependenciasStCmbox()));
+
+            jcHospital.setModel(new javax.swing.DefaultComboBoxModel<>(codigo.MnpHDEP.mostrarHospitalesOrigenCmbox(jcDependencia.getSelectedItem().toString())));
+            jcEspecialidad.setModel(new javax.swing.DefaultComboBoxModel<>(codigo.MnpHDEP.mostrarEspecialidadesCmbox(jcDependencia.getSelectedItem().toString(), jcHospital.getSelectedItem().toString())));
+
+            jcDependencia.addActionListener(new java.awt.event.ActionListener()
+            {
+                @Override
+                public void actionPerformed(java.awt.event.ActionEvent evt)
+                {
+                    String dependenciaSeleccionada = jcDependencia.getSelectedItem().toString();
+                    jcHospital.setModel(new javax.swing.DefaultComboBoxModel<>(
+                            codigo.MnpHDEP.mostrarHospitalesOrigenCmbox(dependenciaSeleccionada)
+                    ));
+                    jcEspecialidad.setModel(new javax.swing.DefaultComboBoxModel<>(codigo.MnpHDEP.mostrarEspecialidadesCmbox(jcDependencia.getSelectedItem().toString(), jcHospital.getSelectedItem().toString())));
+                    String esp = jcEspecialidad.getSelectedItem().toString().toLowerCase();
+                    if (esp.equals("oncología") || esp.equals("oncologia") || esp.equals("neurocirugia") || esp.equals("neurocirugía"))
+                    {
+                        jtNombre.setText(jcEspecialidad.getSelectedItem().toString());
+                        jtNombre.setEnabled(false);
+                    } else
+                    {
+                        jtNombre.setText("");
+                        jtNombre.setEnabled(true);
+                    }
+
+                }
+            }
+            );
+
+            jcHospital.addActionListener(
+                    new java.awt.event.ActionListener()
+            {
+                @Override
+                public void actionPerformed(java.awt.event.ActionEvent evt
+                )
+                {
+                    String dependenciaSeleccionada = jcDependencia.getSelectedItem().toString();
+                    String hpSeleccionado = jcHospital.getSelectedItem().toString();
+                    jcEspecialidad.setModel(new javax.swing.DefaultComboBoxModel<>(
+                            codigo.MnpHDEP.mostrarEspecialidadesCmbox(dependenciaSeleccionada, hpSeleccionado)
+                    ));
+                    String esp = jcEspecialidad.getSelectedItem().toString().toLowerCase();
+                    if (esp.equals("oncología") || esp.equals("oncologia") || esp.equals("neurocirugia") || esp.equals("neurocirugía"))
+                    {
+                        jtNombre.setText(jcEspecialidad.getSelectedItem().toString());
+                        jtNombre.setEnabled(false);
+                    } else
+                    {
+                        jtNombre.setText("");
+                        jtNombre.setEnabled(true);
+                    }
+
+                }
+            }
+            );
+
+            jcEspecialidad.addActionListener(new java.awt.event.ActionListener()
+            {
+                @Override
+                public void actionPerformed(java.awt.event.ActionEvent evt)
+                {
+                    String esp = jcEspecialidad.getSelectedItem().toString().toLowerCase();
+                    if (esp.equals("oncología") || esp.equals("oncologia") || esp.equals("neurocirugia") || esp.equals("neurocirugía"))
+                    {
+                        jtNombre.setText(jcEspecialidad.getSelectedItem().toString());
+                        jtNombre.setEnabled(false);
+                    } else
+                    {
+                        jtNombre.setText("");
+                        jtNombre.setEnabled(true);
+                    }
+                }
+            });
+        } catch (Exception e)
+        {
+            JOptionPane.showMessageDialog(this, "Error inesperado", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
+    }
+
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents()
+    {
+
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jtNombre = new javax.swing.JTextField();
+        jtNoMedicos = new javax.swing.JTextField();
+        btnAceptar = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        jtNoCamas = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        jcDependencia = new javax.swing.JComboBox<>();
+        jLabel5 = new javax.swing.JLabel();
+        jcHospital = new javax.swing.JComboBox<>();
+        jcEspecialidad = new javax.swing.JComboBox<>();
+        jLabel6 = new javax.swing.JLabel();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Modificar especialidad");
+        setType(java.awt.Window.Type.UTILITY);
+
+        jLabel1.setText("Ingresa el nombre de la especialidad:");
+
+        jLabel2.setText("Ingresa el número de medicos");
+
+        jtNombre.setEnabled(false);
+        jtNombre.addKeyListener(new java.awt.event.KeyAdapter()
+        {
+            public void keyPressed(java.awt.event.KeyEvent evt)
+            {
+                jtNombreKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt)
+            {
+                jtNombreKeyTyped(evt);
+            }
+        });
+
+        jtNoMedicos.setEnabled(false);
+        jtNoMedicos.addKeyListener(new java.awt.event.KeyAdapter()
+        {
+            public void keyPressed(java.awt.event.KeyEvent evt)
+            {
+                jtNoMedicosKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt)
+            {
+                jtNoMedicosKeyTyped(evt);
+            }
+        });
+
+        btnAceptar.setText("Aceptar");
+        btnAceptar.setEnabled(false);
+        btnAceptar.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                btnAceptarActionPerformed(evt);
+            }
+        });
+        btnAceptar.addKeyListener(new java.awt.event.KeyAdapter()
+        {
+            public void keyPressed(java.awt.event.KeyEvent evt)
+            {
+                btnAceptarKeyPressed(evt);
+            }
+        });
+
+        jLabel3.setText("Ingresa el número de camas");
+
+        jtNoCamas.setEnabled(false);
+        jtNoCamas.addKeyListener(new java.awt.event.KeyAdapter()
+        {
+            public void keyPressed(java.awt.event.KeyEvent evt)
+            {
+                jtNoCamasKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt)
+            {
+                jtNoCamasKeyTyped(evt);
+            }
+        });
+
+        jLabel4.setText("Selecciona la dependencia a la que pertenece la especialidad");
+
+        jcDependencia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jcDependencia.addKeyListener(new java.awt.event.KeyAdapter()
+        {
+            public void keyPressed(java.awt.event.KeyEvent evt)
+            {
+                jcDependenciaKeyPressed(evt);
+            }
+        });
+
+        jLabel5.setText("Selecciona el hospital al que pertenece la especialidad");
+
+        jcHospital.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jcHospital.setEnabled(false);
+        jcHospital.addKeyListener(new java.awt.event.KeyAdapter()
+        {
+            public void keyPressed(java.awt.event.KeyEvent evt)
+            {
+                jcHospitalKeyPressed(evt);
+            }
+        });
+
+        jcEspecialidad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jcEspecialidad.setEnabled(false);
+        jcEspecialidad.addKeyListener(new java.awt.event.KeyAdapter()
+        {
+            public void keyPressed(java.awt.event.KeyEvent evt)
+            {
+                jcEspecialidadKeyPressed(evt);
+            }
+        });
+
+        jLabel6.setText("Seleccion la especialidad que deseas modificar");
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(38, 38, 38)
+                        .addComponent(jLabel4)
+                        .addGap(70, 70, 70)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel5)
+                                .addGap(75, 75, 75))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(141, 141, 141)
+                                        .addComponent(jcDependencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(149, 149, 149)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jcEspecialidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jcHospital, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jtNoMedicos, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jtNoCamas, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(0, 73, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(79, 79, 79)
+                        .addComponent(jLabel6))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(299, 299, 299)
+                        .addComponent(btnAceptar)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(23, 23, 23)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel1)
+                                    .addComponent(jLabel4))
+                                .addGap(29, 29, 29)
+                                .addComponent(jtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(28, 28, 28))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jcDependencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel5))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jtNoMedicos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jcHospital, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(27, 27, 27)))
+                .addComponent(jtNoCamas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addComponent(jLabel6)
+                .addGap(30, 30, 30)
+                .addComponent(jcEspecialidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 93, Short.MAX_VALUE)
+                .addComponent(btnAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(54, 54, 54))
+        );
+
+        pack();
+        setLocationRelativeTo(null);
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnAceptarActionPerformed
+    {//GEN-HEADEREND:event_btnAceptarActionPerformed
+
+        if (jcDependencia.getSelectedItem().toString().equals("Sin dependencias registradas") || jcHospital.getSelectedItem().toString().equals("Sin hospitales registrados") || jcEspecialidad.getSelectedItem().toString().equals("Sin especialidades registradas") || jtNombre.getText().trim().length() == 0 || jtNoMedicos.getText().length() == 0 || jtNoCamas.getText().length() == 0)
+        {
+            JOptionPane.showMessageDialog(this, "Ningun campo puede estar vacio para poder llevar a cabo esta acción", "Campos invalidos", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        if ( MnpHDEP.verificarNoDuplicadosDeEspecialidad(jcDependencia.getSelectedItem().toString(), jcHospital.getSelectedItem().toString(), jtNombre.getText().toLowerCase().trim()) && !jtNombre.getText().equals(jcEspecialidad.getSelectedItem().toString()))
+        {
+
+            JOptionPane.showMessageDialog(this, "No puedes ingresar una especialidad con el mismo nombre en este hospital ", "Dato no valido", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        String nombre = jtNombre.getText().trim();
+        int noCamas = Integer.parseInt(jtNoCamas.getText());
+        int noMedicos = Integer.parseInt(jtNoMedicos.getText());
+        String dependencia = jcDependencia.getSelectedItem().toString();
+        String hospital = jcHospital.getSelectedItem().toString();
+        String esp = jcEspecialidad.getSelectedItem().toString();
+
+//        NodoML<Hospital> h = MnpHDEP.encontrarHospital(dependencia, hospital);
+//
+//        if (h.getObj().getNivel() != 3 && (nombre.equals("oncología") || nombre.equals("oncologia") || nombre.equals("neurocirugia") || nombre.equals("neurocirugía")))
+//        {
+//            JOptionPane.showMessageDialog(this, "La especialidad: " + nombre + " no puede ser dada de alta a menos que subas el hospital a tercer nivel ", "Alta especialidad", JOptionPane.WARNING_MESSAGE);
+//            return;
+//        }
+//        if (h.getObj().getNivel() == 3 && (nombre.equals("oncología") || nombre.equals("oncologia") || nombre.equals("neurocirugia") || nombre.equals("neurocirugía")))
+//        {
+//            JOptionPane.showMessageDialog(this, "La especialidad: " + nombre + " no puede ser dada de alta porque ya tienes una existente ", "Alta especialidad", JOptionPane.WARNING_MESSAGE);
+//            return;
+//        }
+        NodoML<Hospital> tm = MnpHDEP.verificarTemporales(dependencia, hospital);
+        if (tm != null)
+        {
+            hospital = tm.getObj().getNombre();
+        }
+        NodoML<Especialidad> n = MnpHDEP.encontrarEspecialidad(dependencia, hospital, esp);
+        if (n != null)
+        {
+
+            if (noCamas < MnpHDEP.calcularPacientes(dependencia, hospital, esp))
+            {
+                JOptionPane.showMessageDialog(this, "No puedes asignar menos camas, ya que todas estan ocupadas" + "\n" + "Camas totales: " + n.getObj().getNoCamas() + "\n" + "Camas ocupadas: " + MnpHDEP.calcularPacientes(dependencia, hospital, esp), "Modifica especialidad", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            codigo.MnpHDEP.modificarEspecialidad(n, nombre, noCamas, noMedicos);
+            n.setEtiqueta(nombre);
+        }
+//        NodoML aux = MnpHDEP.verificarTemporales(dependencia, hospital);
+
+        if (tm != null)
+        {
+            JOptionPane.showMessageDialog(this, "HOSPITAL EN REMODELACIÓN, CAMBIOS HECHOS EN HOSPITAL TEMPORAL: " + tm.getEtiqueta() + "\n" + "La especialidad fue actualizada con el nombre: " + nombre + "\n" + "Numero de camas: " + noCamas + "\n" + "Numero de medicos: " + noMedicos, "Modificar especialidad", JOptionPane.INFORMATION_MESSAGE);
+        } else
+        {
+            JOptionPane.showMessageDialog(this, "La especialidad fue actualizada con el nombre: " + nombre + "\n" + "Numero de camas: " + noCamas + "\n" + "Numero de medicos: " + noMedicos, "Modificar especialidad", JOptionPane.INFORMATION_MESSAGE);
+        }
+
+        CtrlInterfaz.limpia(jtNombre, jtNoMedicos, jtNoCamas);
+        CtrlInterfaz.habilita(false, jcEspecialidad, jtNoMedicos, jtNoCamas, jtNombre, jcHospital, btnAceptar);
+        //validacion
+        CtrlInterfaz.cambia(jcDependencia);
+
+        jcDependencia.setModel(new javax.swing.DefaultComboBoxModel<>(codigo.MnpHDEP.mostrarDependenciasStCmbox()));
+        jcHospital.setModel(new javax.swing.DefaultComboBoxModel<>(codigo.MnpHDEP.mostrarHospitalesOrigenCmbox(jcDependencia.getSelectedItem().toString())));
+        jcEspecialidad.setModel(new javax.swing.DefaultComboBoxModel<>(codigo.MnpHDEP.mostrarEspecialidadesCmbox(jcDependencia.getSelectedItem().toString(), jcHospital.getSelectedItem().toString())));
+
+
+    }//GEN-LAST:event_btnAceptarActionPerformed
+
+    private void jtNombreKeyTyped(java.awt.event.KeyEvent evt)//GEN-FIRST:event_jtNombreKeyTyped
+    {//GEN-HEADEREND:event_jtNombreKeyTyped
+        Validaciones.validaAlfabeticos(evt, 15, jtNombre.getText());
+    }//GEN-LAST:event_jtNombreKeyTyped
+
+    private void jtNoMedicosKeyTyped(java.awt.event.KeyEvent evt)//GEN-FIRST:event_jtNoMedicosKeyTyped
+    {//GEN-HEADEREND:event_jtNoMedicosKeyTyped
+        Validaciones.validaEntero(evt, 2, jtNoMedicos.getText());
+    }//GEN-LAST:event_jtNoMedicosKeyTyped
+
+    private void jtNoCamasKeyTyped(java.awt.event.KeyEvent evt)//GEN-FIRST:event_jtNoCamasKeyTyped
+    {//GEN-HEADEREND:event_jtNoCamasKeyTyped
+        Validaciones.validaEntero(evt, 2, jtNoCamas.getText());
+    }//GEN-LAST:event_jtNoCamasKeyTyped
+
+    private void jcDependenciaKeyPressed(java.awt.event.KeyEvent evt)//GEN-FIRST:event_jcDependenciaKeyPressed
+    {//GEN-HEADEREND:event_jcDependenciaKeyPressed
+        if (evt.getKeyChar() == '\n' && jcDependencia.getSelectedItem().toString().equals("Sin dependencias registradas"))
+        {
+
+            JOptionPane.showMessageDialog(this, "Ingresa este dato para pasar a la siguiente accion ", "Sin datos", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        if (evt.getKeyChar() == '\n')
+        {
+            jcHospital.setEnabled(true);
+            jcHospital.requestFocus();
+        }
+    }//GEN-LAST:event_jcDependenciaKeyPressed
+
+    private void jcHospitalKeyPressed(java.awt.event.KeyEvent evt)//GEN-FIRST:event_jcHospitalKeyPressed
+    {//GEN-HEADEREND:event_jcHospitalKeyPressed
+        if (jcHospital.getSelectedItem().toString().equals("Sin hospitales registrados") && evt.getKeyChar() == '\n')
+        {
+
+            JOptionPane.showMessageDialog(this, "Ingresa este dato para pasar a la siguiente accion ", "Sin datos", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        if (evt.getKeyChar() == '\n')
+        {
+            jcEspecialidad.setEnabled(true);
+            jcEspecialidad.requestFocus();
+        }
+    }//GEN-LAST:event_jcHospitalKeyPressed
+
+    private void jcEspecialidadKeyPressed(java.awt.event.KeyEvent evt)//GEN-FIRST:event_jcEspecialidadKeyPressed
+    {//GEN-HEADEREND:event_jcEspecialidadKeyPressed
+        if (evt.getKeyChar() == '\n' && jcEspecialidad.getSelectedItem().toString().equals("Sin especialidades registradas"))
+        {
+
+            JOptionPane.showMessageDialog(this, "Ingresa este dato para pasar a la siguiente accion ", "Sin datos", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        String esp = jcEspecialidad.getSelectedItem().toString().toLowerCase();
+        if ((evt.getKeyChar() == '\n') && esp.equals("oncología") || esp.equals("oncologia") || esp.equals("neurocirugia") || esp.equals("neurocirugía"))
+        {
+            jtNombre.setText(jcEspecialidad.getSelectedItem().toString());
+            jtNombre.setEnabled(false);
+            jtNoMedicos.setEnabled(true);
+            jtNoMedicos.requestFocus();
+        } else if (evt.getKeyChar() == '\n')
+        {
+            jtNombre.setEnabled(true);
+            jtNombre.requestFocus();
+        }
+    }//GEN-LAST:event_jcEspecialidadKeyPressed
+
+    private void jtNombreKeyPressed(java.awt.event.KeyEvent evt)//GEN-FIRST:event_jtNombreKeyPressed
+    {//GEN-HEADEREND:event_jtNombreKeyPressed
+
+        String esp = jcEspecialidad.getSelectedItem().toString().toLowerCase();
+        if (evt.getKeyChar() == '\n' && (esp.equals("oncología") || esp.equals("oncologia") || esp.equals("neurocirugia") || esp.equals("neurocirugía")) && jtNombre.getText().equals(jcEspecialidad.getSelectedItem().toString()))
+        {
+//                jtNombre.setText(jcEspecialidad.getSelectedItem().toString());
+//                jtNombre.setEnabled(false);
+            JOptionPane.showMessageDialog(this, "No puedes modificar el nombre de esta especialidad ", "Acción no permitida", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        if (evt.getKeyChar() == '\n' && MnpHDEP.verificarNoDuplicadosDeEspecialidad(jcDependencia.getSelectedItem().toString(), jcHospital.getSelectedItem().toString(), jtNombre.getText().toLowerCase().trim()) && !jtNombre.getText().equals(jcEspecialidad.getSelectedItem().toString()))
+        {
+
+            JOptionPane.showMessageDialog(this, "No puedes ingresar una especialidad con el mismo nombre en este hospital ", "Dato no valido", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        Validaciones.enterCadenaNoVacia(this, evt, jtNombre, jtNoMedicos);
+    }//GEN-LAST:event_jtNombreKeyPressed
+
+    private void jtNoMedicosKeyPressed(java.awt.event.KeyEvent evt)//GEN-FIRST:event_jtNoMedicosKeyPressed
+    {//GEN-HEADEREND:event_jtNoMedicosKeyPressed
+        Validaciones.enterEntero(this, evt, jtNoMedicos, jtNoCamas);
+    }//GEN-LAST:event_jtNoMedicosKeyPressed
+
+    private void jtNoCamasKeyPressed(java.awt.event.KeyEvent evt)//GEN-FIRST:event_jtNoCamasKeyPressed
+    {//GEN-HEADEREND:event_jtNoCamasKeyPressed
+        if (evt.getKeyChar() == '\n' && jtNoCamas.getText().length() == 0)
+        {
+            JOptionPane.showMessageDialog(this, "Ingresa un número para poder pasar a la siguiente acción ", "Acción no permitida", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        if (evt.getKeyChar() == '\n')
+        {
+
+            int noCamas = Integer.parseInt(jtNoCamas.getText());
+
+            String dependencia = jcDependencia.getSelectedItem().toString();
+            String hospital = jcHospital.getSelectedItem().toString();
+            String esp = jcEspecialidad.getSelectedItem().toString();
+            NodoML<Especialidad> n = MnpHDEP.encontrarEspecialidad(dependencia, hospital, esp);
+            if (n != null)
+            {
+
+                if (noCamas < MnpHDEP.calcularPacientes(dependencia, hospital, esp))
+                {
+                    JOptionPane.showMessageDialog(this, "No puedes asignar menos camas, ya que todas estan ocupadas" + "\n" + "Camas totales: " + n.getObj().getNoCamas() + "\n" + "Camas ocupadas: " + MnpHDEP.calcularPacientes(dependencia, hospital, esp), "Modifica especialidad", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+            }
+        }
+        Validaciones.enterEntero(this, evt, jtNoCamas, btnAceptar);
+    }//GEN-LAST:event_jtNoCamasKeyPressed
+
+    private void btnAceptarKeyPressed(java.awt.event.KeyEvent evt)//GEN-FIRST:event_btnAceptarKeyPressed
+    {//GEN-HEADEREND:event_btnAceptarKeyPressed
+        if (evt.getKeyChar() == '\n')
+        {
+            btnAceptarActionPerformed(null);
+        }
+    }//GEN-LAST:event_btnAceptarKeyPressed
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[])
+    {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try
+        {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels())
+            {
+                if ("Nimbus".equals(info.getName()))
+                {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex)
+        {
+            java.util.logging.Logger.getLogger(VntModificaEspecialidad.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex)
+        {
+            java.util.logging.Logger.getLogger(VntModificaEspecialidad.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex)
+        {
+            java.util.logging.Logger.getLogger(VntModificaEspecialidad.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex)
+        {
+            java.util.logging.Logger.getLogger(VntModificaEspecialidad.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable()
+        {
+            public void run()
+            {
+                new VntModificaEspecialidad().setVisible(true);
+            }
+        });
+    }
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAceptar;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JComboBox<String> jcDependencia;
+    private javax.swing.JComboBox<String> jcEspecialidad;
+    private javax.swing.JComboBox<String> jcHospital;
+    private javax.swing.JTextField jtNoCamas;
+    private javax.swing.JTextField jtNoMedicos;
+    private javax.swing.JTextField jtNombre;
+    // End of variables declaration//GEN-END:variables
+}
